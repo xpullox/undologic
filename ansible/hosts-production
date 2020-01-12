@@ -1,0 +1,2 @@
+[undoapps]
+www.domain.com	ansible_ssh_user=serveruser

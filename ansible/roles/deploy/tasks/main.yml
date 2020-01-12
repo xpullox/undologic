@@ -1,0 +1,66 @@
+---
+- name: STAGING - uploading script...
+  tags:
+    - staging
+  copy:
+    src: staging.sh
+    dest: "{{ location_tmp }}/staging.sh"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: 0775
+
+- name: STAGING - running...
+  tags:
+    - staging
+  shell: "{{ location_tmp }}/staging.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+
+- name: TESTING - uploading script...
+  tags:
+    - testing
+  copy:
+    src: testing.sh
+    dest: "{{ location_tmp }}/testing.sh"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: 0775
+
+- name: TESTING - running...
+  tags:
+    - testing
+  shell: "{{ location_tmp }}/testing.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+
+- name: LAUNCH - uploading script...
+  tags:
+    - launch
+  copy:
+    src: launch.sh
+    dest: "{{ location_tmp }}/launch.sh"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+    mode: 0775
+
+- name: LAUNCH - running...
+  tags:
+    - launch
+  shell: "{{ location_tmp }}/launch.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+
+- name: Cleanup (1/3)
+  tags:
+    - cleanup
+  file:
+    path: "{{ location_tmp }}/staging.sh"
+    state: absent
+
+- name: Cleanup (2/3)
+  tags:
+    - cleanup
+  file:
+    path: "{{ location_tmp }}/testing.sh"
+    state: absent
+
+- name: Cleanup (3/3)
+  tags:
+    - cleanup
+  file:
+    path: "{{ location_tmp }}/launch.sh"
+    state: absent

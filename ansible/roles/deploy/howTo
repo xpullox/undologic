@@ -1,0 +1,4 @@
+#to deploy the new version
+#--check to test
+#LIVE
+ansible-playbook site.yml --verbose --diff -i hosts-production --tags "staging,testing,launch,cleanup"
