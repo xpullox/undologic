@@ -12,7 +12,7 @@
 - name: STAGING - running...
   tags:
     - staging
-  shell: "{{ location_tmp }}/staging.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+  shell: "{{ location_tmp }}/staging.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} {{ location_staging_launch_files_base }} >> {{ location_tmp }}/{{ project_name }}.log"
 
 - name: TESTING - uploading script...
   tags:
@@ -27,7 +27,7 @@
 - name: TESTING - running...
   tags:
     - testing
-  shell: "{{ location_tmp }}/testing.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+  shell: "{{ location_tmp }}/testing.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} {{ location_staging_launch_files_base }} >> {{ location_tmp }}/{{ project_name }}.log"
 
 - name: LAUNCH - uploading script...
   tags:
@@ -42,7 +42,7 @@
 - name: LAUNCH - running...
   tags:
     - launch
-  shell: "{{ location_tmp }}/launch.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} >> {{ location_tmp }}/{{ project_name }}.log"
+  shell: "{{ location_tmp }}/launch.sh {{ project_name }} {{ location_tmp }} {{ location_staging }} {{ location_live }} {{ github_repo_name }} {{ github_user }} {{ github_pass }} {{ location_staging_testing_base }} {{ location_staging_launch_files_base }} >> {{ location_tmp }}/{{ project_name }}.log"
 
 - name: Cleanup (1/3)
   tags:

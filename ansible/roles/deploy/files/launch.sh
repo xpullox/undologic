@@ -1,4 +1,7 @@
 #!/bin/bash
+#LOG_FILE="/home/undologic/private/projectBrowser.log";
+#LOCATION_CLIENT="/home/undologic/www/portaltest/client";
+#LOCATION_LIVE="/home/undologic/www/portal";
 
 NAME=$1
 LOCATION_TMP=$2
@@ -8,6 +11,7 @@ GITHUB_REPO_NAME=$5
 GITHUB_USER=$6
 GITHUB_PASS=$7
 LOCATION_TESTING_BASE=$8
+LOCATION_STAGING_LAUNCH_FILES_BASE=$9
 
 # prepared
 LOG_FILE="$LOCATION_TMP/$NAME.log"
@@ -20,7 +24,7 @@ echo "rsync -av --omit-dir-times --no-perms $LOCATION_STAGING/. $LOCATION_LIVE/.
 
 if ../Console/cake test app AllTests | grep -q 'OK ('; then
   #passed tests
-  rsync -av --omit-dir-times --no-perms $LOCATION_STAGING/. $LOCATION_LIVE/.
+  rsync -av --omit-dir-times --no-perms $LOCATION_STAGING_LAUNCH_FILES_BASE/. $LOCATION_LIVE/.
   echo -e "LAUNCHING: Launched: \e[42m TESTS PASSED and proejct is LIVE - \e[40m - READY" >> "$LOG_FILE"
 else
   #tests are failing

@@ -5,6 +5,7 @@
     server_user: "serveruser"
     location_tmp: "/home/projectName/private"
     location_staging: "/home/projectName/www/subDomain/client"
+    location_staging_launch_files_base: "/home/projectName/www/subDomain/client/src" #allows to specify where the project files are
     location_staging_testing_base: "/home/projectName/www/subDomain/client/app/webroot"
     location_live: "/home/projectName/www/www"
     github_repo_name: "undologic/updateCase-boilerPlate" #eg undologic/name without .git
