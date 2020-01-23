@@ -1,0 +1,35 @@
+version: "2.0"
+services:
+  web:
+    #image: "linux_web:a" #OR
+    build: ./web
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DATABASE_NAME: local
+    volumes:
+      - ../.:/var/www/vhosts/website.com/www
+      - ./sites-available/:/etc/apache2/sites-available/
+      #- ./ssl/:/var/www/vhosts/website.com/ssl/
+    links:
+      - db
+
+
+  db:
+    image: "mysql:5.6.39"
+    volumes:
+          - ./sql/:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: undologic
+      MYSQL_DATABASE: LIVE_database
+      #volumes:
+            #- ../back-end/:/var/www/html #put the db here
+            #- ../back-end/:/var/www/html #import dir`
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin"
+    ports:
+      - "8081:80"
+    links:
+      - db
+
