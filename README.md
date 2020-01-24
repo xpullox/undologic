@@ -67,6 +67,6 @@ Fix the errors on the screen in src/app/Config/core.php
 Included in this boiler plat is basic libraries which can be added to your project using export commands
 
 ```$xslt
-svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/components/. src/app/Controller/Component/.
+svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/Controller/Component/. src/app/Controller/Component/. --force
 ```
 

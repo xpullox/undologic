@@ -1,4 +1,9 @@
 <?php
+
+/*
+CREATE TABLE `LIVE_database`.`users` ( `id` INT NOT NULL AUTO_INCREMENT , `user_type_id` INT NOT NULL , `token` VARCHAR(99) NOT NULL , `first_name` VARCHAR(50) NOT NULL , `last_name` VARCHAR(50) NOT NULL , `email` VARCHAR(99) NOT NULL , `password` VARCHAR(250) NOT NULL , `expires` DATETIME NOT NULL , `last_login` DATETIME NOT NULL , `created` DATETIME NOT NULL , `modified` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ */
+
     //Created by undoLogic
     //MIT
     if (0):
