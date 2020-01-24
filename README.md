@@ -59,6 +59,14 @@ Right click '2startDocker.sh' OR '3restartDocker.sh'
 Navigate to
 http://localhost/src
 
-Fix the errors on the screen
+Fix the errors on the screen in src/app/Config/core.php
+- Change the security salt, etc
+- uncomment date_default_timezone_set('UTC');
 
+### Step 6: Using included libraries
+Included in this boiler plat is basic libraries which can be added to your project using export commands
+
+```$xslt
+svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/components/. src/app/Controller/Component/.
+```
 
