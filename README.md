@@ -64,9 +64,68 @@ Fix the errors on the screen in src/app/Config/core.php
 - uncomment date_default_timezone_set('UTC');
 
 ### Step 6: Using included libraries
-Included in this boiler plat is basic libraries which can be added to your project using export commands
+Included in this boiler plate is basic libraries for handling:
+- Switching between languages in your application
+- Basic securing your application (this is only meant as the first step and you MUST increase the security later)
+- Automated Database interactions
 
 ```$xslt
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/Controller/Component/. src/app/Controller/Component/. --force
 ```
 
+### Step 7: Adding functional testing
+Allows to setup automated testing to ensure your important functions in your project behave the same before launch. 
+This allows for rapid development. NOTE: This is NOT unit testing
+
+```
+curl "https://phar.phpunit.de/phpunit-3.7.38.phar" -O
+chmod +x phpunit-3.7.38.phar
+mv phpunit-3.7.38.phar /usr/local/bin/phpunit.phar
+
+```
+
+Ensure your composer.json file in /src has 
+```
+"require-dev": {
+    "phpunit/phpunit": "^3.7"
+},
+```
+
+Install composer
+```
+brew install composer
+```
+
+Install based on the composer file
+```angular2
+cd src
+composer install
+```
+
+You should now be able to navigate and start building your tests
+```angular2
+localhost/src/test.php
+```
+
+To Create a TEST: create a file in /src/app/Test/Case/Model/PageTest.php
+```angular2
+<?php
+
+App::uses('Controller', 'Controller');
+App::uses('CakeRequest', 'Network');
+App::uses('CakeResponse', 'Network');
+App::uses('ComponentCollection', 'Controller');
+
+class PageTest extends CakeTestCase
+{
+    //add fixtures later when connecting database models
+    public $fixtures = array(
+        //'app.Quote',
+    );
+
+    function testGetConditionsSearch() {
+        $this->assertEquals(1, 1, "This will pass");
+        //$this->assertEquals(1, 0, "This will FAIL");
+    }
+}
+```
