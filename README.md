@@ -129,3 +129,52 @@ class PageTest extends CakeTestCase
     }
 }
 ```
+
+### Step 8: Add Layout
+Download your preferred Bootstrap layout and add all the source files to WEBROOT/modules/layoutName
+
+Update your layout in CakePHP (Views/Layouts/default.ctp) with the main view from your layout
+
+Use $base to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
+
+```
+<?php $base = $this->webroot.'modules/layoutName/'; ?>
+```
+
+Now in the page any link that connects to the original layout files:
+-> All you need to do is add <?= $base; ?> before the link
+
+```
+<img src="assets/img.jpg"/>
+```
+would become
+```
+<img src="<?= $base; ?>assets/img.jpg"/>
+```
+
+### Step 9: Create all your pages
+Build up your navigation and build your site
+
+### Step 10: Approve
+Approve all the visual changes with your client BEFORE starting any programming. Nothing is worst then when you have done work 
+that needs to be re-started because the concept was not approved or needs to be changed
+
+### Step 11: Programming
+Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
+the visual pages into fully working systems that may interact with a database, external api, etc. Basic pages can keep the initial functional scaffolding, but 
+any system that starts to become complex NEEDS to follow our development structure:
+
+- Create model
+- Create integration test (in CakePHP)
+- Create controller
+- Create postman 
+- Create postman TESTING
+- Integrate into your project 
+
+### Step 12:  
+Connect Ansible into your pipeline
+- Each feature is developed in a branch
+- On completion the changes are committed / pushed to that branch
+- A pull - request is created into MASTER
+- Manually if MASTER is working a RELEASE is created 
+- Automated system take the release / test and if success push to LIVE
