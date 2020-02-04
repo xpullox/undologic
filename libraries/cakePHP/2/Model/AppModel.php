@@ -62,15 +62,6 @@ App::uses('Model', 'Model');
         }
 
 
-
-
-
-
-
-
-
-
-
         public function convertJsonString($str) {
 			$data = trim($str);
 			$data = json_decode($data, true);
