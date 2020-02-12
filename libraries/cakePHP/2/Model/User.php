@@ -223,6 +223,44 @@ class User extends AppModel
     }
 
 
+    /**
+     * Use database config
+     *
+     * @var string
+     */
+
+    function loginUser($email, $password) {
+
+        $conditions = array('AND' => array(
+            array('User.email' => $email),
+            array('User.password' => $password),
+        ));
+
+        $found = $this->find('first', array(
+            'conditions' => $conditions
+        ));
+
+        if (!empty($found)) {
+
+            $this->data['User'] = $found['User'];
+
+            $token = uniqid();
+            $this->data['User']['token'] = $token;
+
+            if ($this->save($this->data)) {
+
+                $_SESSION['token'] = $token;
+
+                return $token;
+            } else {
+                die ('cannot save');
+            }
+        }
+
+        return false;
+    }
+
+
 
 
 

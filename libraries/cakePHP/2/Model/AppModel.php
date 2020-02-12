@@ -34,28 +34,30 @@ App::uses('Model', 'Model');
         function __construct($id = false, $table = null, $ds = null) {
 
 
-            $location = '';
-            if (isset($_SERVER['HTTP_HOST'])) {
-                if (in_array($_SERVER['HTTP_HOST'], Configure::read('liveServer'))) {
-                    $location = 'LIVE';
-                } else {
-                    $location = 'LOCAL';
-                }
-            } else {
-                //command line
-                $location = 'LIVE';
-            }
+//            $location = '';
+//            if (isset($_SERVER['HTTP_HOST'])) {
+//                if (in_array($_SERVER['HTTP_HOST'], Configure::read('liveServer'))) {
+//                    $location = 'LIVE';
+//                } else {
+//                    $location = 'LOCAL';
+//                }
+//            } else {
+//                //command line
+//                $location = 'LIVE';
+//            }
+//
+//            //add to the bootstrap
+//            //Configure::write('localServer', array('localhost'));
+//            //Configure::write('liveServer', array('www.domain.com','domain.com'));
+//            if (!Configure::read('liveServer')) die('add live and local server to bootstrap: app_model.php');
+//
+//            if ($location == 'LIVE') {
+//                $this->useDbConfig = 'live';
+//            } else {
+//                $this->useDbConfig = 'local';
+//            }
 
-            //add to the bootstrap
-            //Configure::write('localServer', array('localhost'));
-            //Configure::write('liveServer', array('www.domain.com','domain.com'));
-            if (!Configure::read('liveServer')) die('add live and local server to bootstrap: app_model.php');
-
-            if ($location == 'LIVE') {
-                $this->useDbConfig = 'live';
-            } else {
-                $this->useDbConfig = 'local';
-            }
+			$this->useDbConfig = 'main';
 
             Configure::write('DbConfig', $this->useDbConfig);
             parent::__construct($id, $table, $ds);

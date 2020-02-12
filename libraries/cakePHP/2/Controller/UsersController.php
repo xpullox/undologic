@@ -32,6 +32,11 @@ class UsersController extends AppController {
 
 	var $modelUsed = 'User';
 
+	function logout() {
+		$this->Session->write('token', 0);
+		die ('logged out');
+	}
+
 	function login() {
 		//pr($this->Auth->password('acs333')); exit;
 
