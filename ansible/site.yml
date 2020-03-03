@@ -2,6 +2,7 @@
 - hosts: undoapps
   vars:
     project_name: "ProjectName"
+    host: "name.server.com"
     server_user: "serveruser"
     location_tmp: "/home/projectName/private"
     location_staging: "/home/projectName/www/subDomain/client"

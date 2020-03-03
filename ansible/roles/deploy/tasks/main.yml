@@ -1,4 +1,17 @@
 ---
+- name: testing
+  tags:
+    - init
+  connection: local
+  debug:
+    msg: "ssh {{ server_user }}@{{ host }}"
+- name: testing
+  tags:
+    - init
+  connection: local
+  debug:
+    msg: "git clone https://{{ github_user }}:{{ github_pass }}@github.com/{{ github_repo_name }}.git {{ location_staging }}"
+
 - name: STAGING - uploading script...
   tags:
     - staging
