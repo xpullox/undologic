@@ -1,16 +1,28 @@
 ---
-- name: testing
+- name: "Manual override: SSH to remote machine"
   tags:
-    - init
+    - manual
   connection: local
   debug:
     msg: "ssh {{ server_user }}@{{ host }}"
-- name: testing
+- name: "Manual override: Checkout to staging"
   tags:
-    - init
+    - manual
   connection: local
   debug:
     msg: "git clone https://{{ github_user }}:{{ github_pass }}@github.com/{{ github_repo_name }}.git {{ location_staging }}"
+- name: "Manual override: Test code"
+  tags:
+    - manual
+  connection: local
+  debug:
+    msg: "http://test.{{ host }}/client/"
+- name: "Manual override: GO LIVE"
+  tags:
+    - manual
+  connection: local
+  debug:
+    msg: "rsync -av --omit-dir-times --no-perms {{ location_staging_launch_files_base }} {{ location_live }}"
 
 - name: STAGING - uploading script...
   tags:
