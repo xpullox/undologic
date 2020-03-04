@@ -12,6 +12,7 @@
     github_repo_name: "undologic/updateCase-boilerPlate" #eg undologic/name without .git
     github_user: "githubuser"
     github_pass: "password"
+    github_active_dir: ""
   become: no
   become_user: root
   roles:

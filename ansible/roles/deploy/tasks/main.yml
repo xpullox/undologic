@@ -1,22 +1,32 @@
 ---
-- name: "Manual override: SSH to remote machine"
+- name: "Manual override: SSH to remote machine (Ideally you can copy from Project management system to logon)"
   tags:
     - manual
   connection: local
   debug:
     msg: "ssh {{ server_user }}@{{ host }}"
-- name: "Manual override: Checkout to staging"
+
+- name: "Manual override: Delete Staging dir (CAREFUL NOT TO TRUNCATE THIS COMMAND)"
   tags:
     - manual
   connection: local
   debug:
-    msg: "git clone https://{{ github_user }}:{{ github_pass }}@github.com/{{ github_repo_name }}.git {{ location_staging }}"
+    msg: "rm -rf {{ location_staging }}"
+
+- name: "Manual override: Checkout to staging the ACTIVE project ONLY"
+  tags:
+    - manual
+  connection: local
+  debug:
+    msg: "svn export --force --username {{ github_user }} --password {{ github_pass }} https://@github.com/{{ github_active_dir }} {{ location_staging }}"
+
 - name: "Manual override: Test code"
   tags:
     - manual
   connection: local
   debug:
-    msg: "http://test.{{ host }}/client/"
+    msg: "http://test.{{ server_user }}.{{ host }}/client/"
+
 - name: "Manual override: GO LIVE"
   tags:
     - manual
