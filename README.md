@@ -36,6 +36,17 @@ svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ansible ans
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/docker docker/.
 ```
 
+### Step 3b: Install Ansible / Docker
+
+```angular2
+brew install ansible
+```
+
+```angular2
+@todo ADD DOCKER BREW CASK function here 
+```
+
+
 ### Step 4: Add CakePHP 2.x
 You are now ready to add your source files
 
