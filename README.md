@@ -189,7 +189,7 @@ errors without the ability to break the site will be very satisfied.
 - All content is pulled into your site as a FLAT FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
 website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
 
-### Step 12:  
+### Step 13:  
 At this point you have a fully functional docker running with a custom website all that is left is a way to automate the publishing to your Staging / LIVE locations. 
 Connect Ansible into your pipeline
 - Each feature is developed in a branch
