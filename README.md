@@ -161,17 +161,36 @@ that needs to be re-started because the concept was not approved or needs to be 
 
 ### Step 11: Programming
 Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
-the visual pages into fully working systems that may interact with a database, external api, etc. Basic pages can keep the initial functional scaffolding, but 
-any system that starts to become complex NEEDS to follow our development structure:
+the visual pages into fully working systems that may interact with a database, external api, etc.
 
-- Create model
-- Create integration test (in CakePHP)
-- Create controller
-- Create postman 
-- Create postman TESTING
-- Integrate into your project 
+We recommend the following workflow 
+- First enable your views by using CakePHP basic functionality. This gets your pages up and running quickly and fully working
+
+However as soon as any page requires complicated programming immediately implement AngularJS
+- This will force you to create a solid API structure that will keep your code of good quality moving forward. 
+- Create a model that will get the data you require from the database
+- IMPORTANT: Create a Functional test to get this data from your Model / DB
+- Test driven development is not much harder to setup and when it is running future modifications are very easy to implament
+- After the functional test is complete then create the controller (API END POINT)
+- Use Postman to test getting the data OR use CakePHP Tests (RequestAction)
+- Now that you have a solid API you can now integrate this feature into your code with AngularJS
+
+IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
+logic, but with the same name you can easily diagnose issues and find references efficiently. 
+
+### Step 12: Connect UpdateCase Module
+Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
+updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
+The programmer will prefer to handle more complicated upgrades and will get more satisfaction. On the other hand a non-technical staff can fix spelling 
+errors without the ability to break the site will be very satisfied.
+- Logon to UpdateCase.com and download the latest version of the plugin into app/webroot
+- Follow all the easy instructions within the UpdateCase software to integrate into the site
+- You are simply adding a library call on all text / image locations so they will be managed from UpdateCase
+- All content is pulled into your site as a FLAT FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
+website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
 
 ### Step 12:  
+At this point you have a fully functional docker running with a custom website all that is left is a way to automate the publishing to your Staging / LIVE locations. 
 Connect Ansible into your pipeline
 - Each feature is developed in a branch
 - On completion the changes are committed / pushed to that branch
