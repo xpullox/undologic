@@ -59,6 +59,78 @@ class AppController extends Controller {
 
 	}
 
+
+    function setupLanguage()
+    {
+        //language stuff
+        //does get info exist, this will be priority
+        if (isset($_GET['Lang'])) {
+            $this->Language->setGet($_GET['Lang']);
+        }
+        //if there params of what language we should be using
+        if (isset($this->params['language'])) {
+            $this->Language->setParams($this->params['language']);
+        }
+        //or we are going to check out session of cookie for a already selected language
+        $this->Language->setSession($this->Session);
+        $this->Language->setCookie($this->Cookie);
+        //and fall back to the default if not set yet
+        $this->Language->setDefaultLanguage(Configure::read('Config.language'));
+        $currLang = $this->Language->currLang();
+
+        $this->Language->setCurrLang($currLang);
+
+        //pr ($currLang);exit;
+        //echo 'hi';
+        switch ($currLang) {
+            case 'fre':
+
+                Configure::write('currLang', $currLang);
+                $this->set('langFR', TRUE);
+                $this->set('lang', 'fr');
+                $this->set('currLang', $currLang);
+                $this->Cookie->write('currLang', 'fre', NULL, '+350 day');
+                Configure::write('Config.language', 'fre');
+                Configure::write("UpdateCase.language", "fre"); //define the language in app_controller / globally
+                break;
+            default:
+                Configure::write('currLang', $currLang);
+                $this->set('lang', 'en');
+                $this->set('langEN', TRUE);
+                $this->set('currLang', $currLang);
+                $this->Cookie->write('currLang', 'eng', NULL, '+350 day');
+                Configure::write('Config.language', 'eng');
+                Configure::write("UpdateCase.language", "eng"); //define the language in app_controller / globally
+        }
+
+
+        //pr (Configure::read('currLang'));
+        // exit;
+    }
+
+    function setFrench() {
+        $this->Language->setCurrLang('fre', $this->Session, $this->Cookie);
+    }
+
+    function setEnglish() {
+        $this->Language->setCurrLang('eng', $this->Session, $this->Cookie);
+        $this->Cookie->write('currLang', 'eng', NULL, '+350 day');
+    }
+
+    function currentLang() {
+        $currLang = $this->Language->currLang();
+        return $currLang;
+    }
+
+    function isFrench() {
+        $currLang = $this->Language->currLang();
+        if ($currLang == 'fre') {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     function jsonHeaders($data) {
         header('Content-Type: application/json');
         echo $data;
