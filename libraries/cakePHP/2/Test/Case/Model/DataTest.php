@@ -13,7 +13,7 @@ class DataTest extends CakeTestCase
 
 	function testGetConditionsSearch() {
 
+	    die ('this is a test');
         //add your first test here
-
 	}
 }

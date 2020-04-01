@@ -189,6 +189,26 @@ However as soon as any page requires complicated programming immediately impleme
 IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
 logic, but with the same name you can easily diagnose issues and find references efficiently. 
 
+### Step 11b: Bake Models
+The models are created by using BAKE
+
+in the terminal navigate to the base directory of your project
+
+Login to your docker shell
+
+```angular2
+cd docker
+docker ps
+# find the 'web' 
+docker exec -it docker_web_1 bash 
+# You are now logged into the docker 
+cd /var/www/vhosts/website.com/
+cd www
+cd app (cd /path/to/app)
+./Console/cake bake
+```
+
+
 ### Step 12: Connect UpdateCase Module
 Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
 updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
