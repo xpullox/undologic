@@ -18,7 +18,7 @@
     - manual
   connection: local
   debug:
-    msg: "svn export --force --username {{ github_user }} --password {{ github_pass }} https://@github.com/{{ github_active_dir }} {{ location_staging }}"
+    msg: "svn export --force --username {{ github_user }} --password {{ github_pass }} https://github.com/{{ github_repo_name }}/{{ github_active_dir }} {{ location_staging }}"
 
 - name: "Manual override: Test code"
   tags:
