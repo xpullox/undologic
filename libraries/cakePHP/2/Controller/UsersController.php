@@ -37,6 +37,51 @@ class UsersController extends AppController {
 		die ('logged out');
 	}
 
+    private function emailReminder($to, $hash)
+    {
+
+        //pr ($to);
+        //pr ($hash);
+        //exit;
+
+        $domain = Router::url("/", TRUE);
+
+        $this->set('hash', $hash);
+        $this->set('domain', $domain);
+
+        $subject = 'Password Reset';
+
+        $Email = new CakeEmail();
+
+        //not working
+        //$Email->transport('smtp');
+
+        $Email->to($to);
+
+        $vars['hash'] = $hash;
+        $vars['domain'] = $domain;
+        $Email->viewVars($vars);
+
+        //$this->Email->lineLength = 200;
+        $Email->subject($subject);
+        $Email->from('info@undologic.com');
+
+        $Email->template('reset');
+        //$this->Email->layout = 'reset';
+        $Email->emailFormat('html');
+
+        //$this->Email->template = null;
+        //old method
+        //'Reset your password here.' . Router::url("/", true) . 'system/tickets/reset/' . $hash
+        $sent = $Email->send();
+
+        if ($sent) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 	function login() {
 		//pr($this->Auth->password('acs333')); exit;
 

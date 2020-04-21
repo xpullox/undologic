@@ -122,6 +122,18 @@ class User extends AppModel
 
     );
 
+    function doesUserExist($email)
+    {
+        $user = $this->find('first', array(
+            'conditions' => array('User.email' => $email)));
+        // pr ($user);
+        // exit;
+        if ($user) {
+            return $user;
+        } else {
+            return FALSE;
+        }
+    }
 
     function isUserAuthenticated($token, $params, $headers)
     {
