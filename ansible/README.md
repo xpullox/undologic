@@ -2,8 +2,10 @@
 
 ##MANUAL OVERRIDE (Perform the steps yourself)
 You need to navigate to the same folder as ansible to run this command (eg cd ansible)
+```angular2
+ansible-playbook site.yml --verbose --diff -i hosts-production --tags "manual"`
+```
 
-`ansible-playbook site.yml --verbose --diff -i hosts-production --tags "manual"`
 
 NOTE: If you change branches you MUST change github_active_dir in 'site.xml' to the new branch name
 
@@ -13,7 +15,14 @@ brew install ansible
 ```
 
 ##LIVE ONLY
+```angular2
+ansible-playbook site.yml --verbose --diff -i hosts-production --tags "staging,launch"
+```
+Full
+```angular2
 ansible-playbook site.yml --verbose --diff -i hosts-production --tags "staging,testing,launch,cleanup"
+```
+
 
 
 

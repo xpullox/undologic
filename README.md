@@ -20,6 +20,7 @@ You can run a simple command to download the files into your project.
 
 #### ALL MODULES
 CAUTION: this will replace 'readme' 'ansible' 'docker' if you would rather NOT replace these use the single commands below
+
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ . --force
 ```
@@ -53,15 +54,11 @@ You are now ready to add your source files
 #### CakePHP 2.x
 This downloads the raw project from CakePHP and will place all files into 'src' directory. 
 
-```
-wget https://github.com/cakephp/cakephp/archive/2.10.20.zip
-```
-If you do NOT have wget, you can manually download the files using your browser
-https://github.com/cakephp/cakephp/archive/2.10.20.zip
 
-```
-unzip 2.10.20.zip
-mv cakephp-2.10.20 src
+### 2.x version
+```angular2
+svn export https://github.com/cakephp/cakephp/branches/2.x
+mv 2.x src
 ```
 
 ### Step 5: Startup docker / test project
@@ -140,6 +137,12 @@ class PageTest extends CakeTestCase
     }
 }
 ```
+
+### gitignore
+modify the file in /src
+remove the app/tmp
+-> put an empty file there
+
 
 ### Step 8: Add Layout
 Download your preferred Bootstrap layout and add all the source files to WEBROOT/modules/layoutName
