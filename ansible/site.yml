@@ -2,7 +2,7 @@
 - hosts: undoapps
   vars:
     project_name: "ProjectName"
-    host: "name.server.com"
+    host: "server.com" #server1.com
     server_user: "serveruser"
     location_tmp: "/home/projectName/private"
     location_staging: "/home/projectName/www/subDomain/client"
@@ -12,7 +12,7 @@
     github_repo_name: "undologic/updateCase-boilerPlate" #eg undologic/name without .git
     github_user: "githubuser"
     github_pass: "password"
-    github_active_dir: ""
+    github_active_dir: "" # trunk or branches/name
   become: no
   become_user: root
   roles:
