@@ -231,3 +231,19 @@ Connect Ansible into your pipeline
 - A pull - request is created into MASTER
 - Manually if MASTER is working a RELEASE is created 
 - Automated system take the release / test and if success push to LIVE
+
+### Step 14: Folder organization with version letter
+All folders need to have a letter indicating the version. 
+This letter is also the same as the current layout. 
+Css files also connect to this letter version name: styles-A.css 
+Elements folder should have a directory with the verion letter Elements/A/files...
+This setup allows to do quick A/B testing by setting which version letter is active in the beforeFilter
+
+
+### Step 15: Efficient integration of new scripts
+In order to efficiently integrate new modules, 
+you should store all source files in 'modules/NAME' within the webroot
+1. Test that the script works before you integrate into the cakePHP code
+2. Create a new page WITHOUT using the layout and ensure the script works (linking all scripts to the modules directory)
+3. After you have confirmed it is working in modules and a blank page, next integrate the code into the project using the layout
+4. After it is all working if you want you can refactor the scripts
