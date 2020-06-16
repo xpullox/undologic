@@ -32,7 +32,7 @@
     - manual
   connection: local
   debug:
-    msg: "rsync -av --omit-dir-times --no-perms {{ location_staging_launch_files_base }}/.. {{ location_live }}/.."
+    msg: "rsync -av --omit-dir-times --no-perms {{ location_staging_launch_files_base }}/. {{ location_live }}/."
 
 - name: STAGING - uploading script...
   tags:
