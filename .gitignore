@@ -1,0 +1,24 @@
+# CakePHP #
+#################################################
+/app/tmp/cache/*
+/app/tmp/logs/*
+/app/webroot/images/182/*.jpg
+/app/webroot/images/182/*.png
+/app/Config/Schema/182/*.json
+/app/webroot/updateCase.log
+
+# IDE and editor specific files #
+#################################
+/nbproject
+.idea
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
