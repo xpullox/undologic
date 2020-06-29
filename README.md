@@ -37,7 +37,7 @@ svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ansible ans
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/docker docker/.
 ```
 
-### Step 3b: Install Ansible / Docker
+### Step 3b: Install Ansible / Docker (FIRST TIME ONLY)
 
 ```angular2
 brew install ansible
@@ -59,6 +59,12 @@ This downloads the raw project from CakePHP and will place all files into 'src' 
 ```angular2
 svn export https://github.com/cakephp/cakephp/branches/2.x
 mv 2.x src
+ 
+```
+
+#### Import our boiler plate on top of a fresh cakePHP install
+```angular2
+rsync -av libraries/cakePHP/2/. src/app/.
 ```
 
 ### Step 5: Startup docker / test project
