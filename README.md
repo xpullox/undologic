@@ -70,6 +70,7 @@ rsync -av libraries/cakePHP/2/. src/app/.
 ```
 
 ### Step 6: Startup docker / test project
+Look into the docker folder
 Right click '2startDocker.sh' OR '3restartDocker.sh'
 
 Navigate to
