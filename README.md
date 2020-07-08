@@ -1,16 +1,11 @@
 # updateCase-boilerPlate
 UpdateCase.com project base - Manage and launch your project with Docker and Ansible
 
-### Howto
-Create a directory - eg 'src' in the root and place your project files there. Outside of this directory will be all the 
-different technologies to manage the system (ansible, docker, etc)
-
 ### Step 1: Create new Git hub account
-Logon to your git hub account and create a new emtpy project
+Logon to your git hub account and create a new empty project
 
 ### Step 2: Clone that account to your computer
-Use Php storm to checkout the github files. You will now have an empty project
-or terminal git clone .....
+Use Php storm (or terminal) to checkout the github files to your computer. You will now have an empty project.
 
 ### Step 3: Add Ansible / Docker
 You can run a simple command to download the files into your project. 
@@ -18,66 +13,26 @@ You can run a simple command to download the files into your project.
 2. In the future if you want to upgrade to the latest version simply download and overwrite 'roles'. You might need to modify your site.yml
 3. Use your terminal and navigate to the base of your project files and run:
 
-#### ALL MODULES
-CAUTION: this will replace 'readme' 'ansible' 'docker' if you would rather NOT replace these use the single commands below
+#### ALL MODULES (Ansible, Docker, library, etc)
+CAUTION: this will replace 'readme' 'ansible' 'docker' if they already exist in your project
 
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ . --force
 ```
 
-#### ONLY ansible
+#### Export ONLY ansible
 
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ansible ansible/.
 ```
 
-#### ONLY docker
+#### Export ONLY docker
 
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/docker docker/.
 ```
 
-### Step 3b: Install Ansible / Docker (FIRST TIME ONLY)
-
-```angular2
-brew install ansible
-```
-
-```angular2
-@todo ADD DOCKER BREW CASK function here 
-```
-
-
-### Step 4: Add CakePHP 2.x
-You are now ready to add your source files
-
-#### CakePHP 2.x
-This downloads the raw project from CakePHP and will place all files into 'src' directory. 
-
-
-### 2.x version
-```angular2
-svn export https://github.com/cakephp/cakephp/branches/2.x
-mv 2.x src
- 
-```
-
-#### Import our boiler plate on top of a fresh cakePHP install
-```angular2
-rsync -av libraries/cakePHP/2/. src/app/.
-```
-
-### Step 5: Startup docker / test project
-Right click '2startDocker.sh' OR '3restartDocker.sh'
-
-Navigate to
-http://localhost/src
-
-Fix the errors on the screen in src/app/Config/core.php
-- Change the security salt, etc
-- uncomment date_default_timezone_set('UTC');
-
-### Step 6: Using included libraries
+#### Export library files only
 Included in this boiler plate is basic libraries for handling:
 - Switching between languages in your application
 - Basic securing your application (this is only meant as the first step and you MUST increase the security later)
@@ -87,15 +42,54 @@ Included in this boiler plate is basic libraries for handling:
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/Controller/Component/. src/app/Controller/Component/. --force
 ```
 
+### Step 4: Install Ansible / Docker (FIRST TIME ONLY)
+
+```angular2
+brew install ansible
+```
+
+```angular2
+@todo ADD DOCKER BREW CASK function here 
+```
+
+### Step 5: Add CakePHP 2.x
+You are now ready to add your source files
+
+#### CakePHP 2.x
+This downloads the raw project from CakePHP and will place all files into 'src' directory. 
+
+### 2.x version
+```angular2
+svn export https://github.com/cakephp/cakephp/branches/2.x
+mv 2.x src 
+```
+
+#### Import our boiler plate on top of a fresh cakePHP install with standard settings
+```angular2
+rsync -av libraries/cakePHP/2/. src/app/.
+```
+
+### Step 6: Startup docker / test project
+Right click '2startDocker.sh' OR '3restartDocker.sh'
+
+Navigate to
+```angular2
+http://localhost/src
+```
+
+First time cleanup and preparation
+- Fix any errors (src/app/Config/core.php - security salt, etc)
+- Uncomment date_default_timezone_set('UTC');
+- Ensure gitignore is correct to prevent any large files from being uploaded
+
 ### Step 7: Adding functional testing
 Allows to setup automated testing to ensure your important functions in your project behave the same before launch. 
-This allows for rapid development. NOTE: This is NOT unit testing
+This allows for rapid development. 
 
 ```
 curl "https://phar.phpunit.de/phpunit-3.7.38.phar" -O
 chmod +x phpunit-3.7.38.phar
 mv phpunit-3.7.38.phar /usr/local/bin/phpunit.phar
-
 ```
 
 Ensure your composer.json file in /src has 
@@ -155,14 +149,14 @@ Download your preferred Bootstrap layout and add all the source files to WEBROOT
 
 Update your layout in CakePHP (Views/Layouts/default.ctp) with the main view from your layout
 
-Use $base to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
+Use $base (as a variable in App_controller) to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
 
 ```
 <?php $base = $this->webroot.'modules/layoutName/'; ?>
 ```
 
-Now in the page any link that connects to the original layout files:
--> All you need to do is add <?= $base; ?> before the link
+Now in your view, anywhere you see 'src=assets' will instead be 'src=<?= $base; ?>assets'
+-> This also applies to href, url etc
 
 ```
 <img src="assets/img.jpg"/>
@@ -172,12 +166,14 @@ would become
 <img src="<?= $base; ?>assets/img.jpg"/>
 ```
 
-### Step 9: Create all your pages
+NOTE: Make sure you do not change href='#' to href='<?= $base; ?>#" as this will cause problems
+
+### Step 9: Create all your visual pages
 Build up your navigation and build your site
 
 ### Step 10: Approve
-Approve all the visual changes with your client BEFORE starting any programming. Nothing is worst then when you have done work 
-that needs to be re-started because the concept was not approved or needs to be changed
+Approve all the visual changes with your client BEFORE starting any programming. Nothing is as bad then when you have done work 
+that needs to be re-started or radically changed because the concept was not approved.
 
 ### Step 11: Programming
 Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
@@ -217,7 +213,6 @@ cd app (cd /path/to/app)
 ./Console/cake bake
 ```
 
-
 ### Step 12: Connect UpdateCase Module
 Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
 updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
@@ -244,7 +239,6 @@ This letter is also the same as the current layout.
 Css files also connect to this letter version name: styles-A.css 
 Elements folder should have a directory with the verion letter Elements/A/files...
 This setup allows to do quick A/B testing by setting which version letter is active in the beforeFilter
-
 
 ### Step 15: Efficient integration of new scripts
 In order to efficiently integrate new modules, 
