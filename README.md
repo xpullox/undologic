@@ -39,7 +39,7 @@ Included in this boiler plate is basic libraries for handling:
 - Automated Database interactions
 
 ```$xslt
-svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/Controller/Component/. src/app/Controller/Component/. --force
+svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/. libraries/cakePHP/2/. --force
 ```
 
 ### Step 4: Install Ansible / Docker (FIRST TIME ONLY)
@@ -87,6 +87,7 @@ First time cleanup and preparation
 Allows to setup automated testing to ensure your important functions in your project behave the same before launch. 
 This allows for rapid development. 
 
+Initialization (Once per computer installation only)
 ```
 curl "https://phar.phpunit.de/phpunit-3.7.38.phar" -O
 chmod +x phpunit-3.7.38.phar
