@@ -249,3 +249,17 @@ you should store all source files in 'modules/NAME' within the webroot
 2. Create a new page WITHOUT using the layout and ensure the script works (linking all scripts to the modules directory)
 3. After you have confirmed it is working in modules and a blank page, next integrate the code into the project using the layout
 4. After it is all working if you want you can refactor the scripts
+
+### Step 16: Scaffolding Pages
+To setup the visual pages, you should setup all the non-working pages
+using the real layout. This allows to show the concept to your client
+and ensure the project is inline with their vision. 
+It will be the real elements so they will jive with it (opposed to showing wireframes which they tend to ignore and only voice their ideas when they see it build)
+1. Ensure you already name your files with the correct prefix (eg staff access = staff_dashboard.ctp)
+2. Build this quickly but remember it will change a lot after the client starts giving feedback. 
+
+### Step 17: Logging
+Logging needs to HELP support and troubleshooting NOT only your development. 
+What does that mean, it means create levels of logs. 
+-- Highlevel: should outlines which functions / methods are being accessed and general state
+-- Debug: this can have detailed info which can fill the screen that developers use. So you can put a stop point and look at that state to continue development. 
