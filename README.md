@@ -13,7 +13,7 @@ You can run a simple command to download the files into your project.
 2. In the future if you want to upgrade to the latest version simply download and overwrite 'roles'. You might need to modify your site.yml
 3. Use your terminal and navigate to the base of your project files and run:
 
-#### ALL MODULES (Ansible, Docker, library, etc)
+#### ALL MODULES (Ansible, Docker, libraries, etc)
 CAUTION: this will replace 'readme' 'ansible' 'docker' if they already exist in your project
 
 ```
@@ -101,7 +101,7 @@ Ensure your composer.json file in /src has
 },
 ```
 
-Install composer
+Install composer (first time only)
 ```
 brew install composer
 ```
@@ -151,40 +151,48 @@ Download your preferred Bootstrap layout and add all the source files to WEBROOT
 
 Update your layout in CakePHP (Views/Layouts/default.ctp) with the main view from your layout
 
-Use $base (as a variable in App_controller) to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
+Use $base (as a variable in App_controller -> beforeFilter() {} ) to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
 
 ```
-<?php $base = $this->webroot.'modules/layoutName/'; ?>
+$base = $this->webroot.'modules/layoutName/';
 ```
 
-Now in your view, anywhere you see 'src=assets' will instead be 'src=<?= $base; ?>assets'
+Now in your view we need to link to the modules path
+-> anywhere you see 'src="assets......' will instead be 'src="<?= $base; ?>assets......'
 -> This also applies to href, url etc
 
 ```
 <img src="assets/img.jpg"/>
 ```
-would become
+will become
 ```
 <img src="<?= $base; ?>assets/img.jpg"/>
 ```
 
-NOTE: Make sure you do not change href='#' to href='<?= $base; ?>#" as this will cause problems
+IMPORTANT: Make sure you do not change href='#' as this will cause problems if you add "....$base; ?>#...."
 
-### Step 9: Create all your visual pages
+### Step 9: Create all your visual pages (concept ONLY)
 Build up your navigation and build your site
+- Create all the concept pages in the 'Pages' controller
+- Using the display function so you only have to create the pages and you do NOT need to create a controller/action for each page (this will compare after approval)
+- Name all your pages in this format: prefix-controller-action.ctp
+eg client_users_edit
+This will only allow 'client' user_types in the Users controller / model using the edit action in the future
+-> This allows to prepare and concept out which pages get the correct prefix in advance. 
 
 ### Step 10: Approve
-Approve all the visual changes with your client BEFORE starting any programming. Nothing is as bad then when you have done work 
-that needs to be re-started or radically changed because the concept was not approved.
+Approve all the visual changes with your client BEFORE starting any programming, database development, etc. Nothing is as bad then when you have done work 
+that needs to be re-started or radically changed because the concept was not approved. 
+At this stage any changes can be easily completed and this helps the client brainstorm with you to create a great intuitive software. 
 
 ### Step 11: Programming
 Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
 the visual pages into fully working systems that may interact with a database, external api, etc.
 
-We recommend the following workflow 
-- First enable your views by using CakePHP basic functionality. This gets your pages up and running quickly and fully working
+Create most pages with MVC (MODEL-VIEW-CONTROLLER)
+-> This is fast to setup and most client actually prefer regular single page loading.
 
-However as soon as any page requires complicated programming immediately implement AngularJS
+However... as soon as any page requires complicated programming immediately implement AngularJS (API style development)
 - This will force you to create a solid API structure that will keep your code of good quality moving forward. 
 - Create a model that will get the data you require from the database
 - IMPORTANT: Create a Functional test to get this data from your Model / DB
@@ -196,7 +204,7 @@ However as soon as any page requires complicated programming immediately impleme
 IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
 logic, but with the same name you can easily diagnose issues and find references efficiently. 
 
-### Step 11b: Bake Models
+### Step 11b: Bake Models (if required)
 The models are created by using BAKE
 
 in the terminal navigate to the base directory of your project
@@ -223,7 +231,7 @@ errors without the ability to break the site will be very satisfied.
 - Logon to UpdateCase.com and download the latest version of the plugin into app/webroot
 - Follow all the easy instructions within the UpdateCase software to integrate into the site
 - You are simply adding a library call on all text / image locations so they will be managed from UpdateCase
-- All content is pulled into your site as a FLAT FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
+- All content is pulled into your site as a FLAT JSON FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
 website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
 
 ### Step 13:  
@@ -231,15 +239,15 @@ At this point you have a fully functional docker running with a custom website a
 Connect Ansible into your pipeline
 - Each feature is developed in a branch
 - On completion the changes are committed / pushed to that branch
-- A pull - request is created into MASTER
+- A pull request is created into MASTER
 - Manually if MASTER is working a RELEASE is created 
 - Automated system take the release / test and if success push to LIVE
 
 ### Step 14: Folder organization with version letter
-All folders need to have a letter indicating the version. 
+All folders (elements, css, js, etc) need to have a letter indicating the version. 
 This letter is also the same as the current layout. 
 Css files also connect to this letter version name: styles-A.css 
-Elements folder should have a directory with the verion letter Elements/A/files...
+Elements folder should have a directory with the version letter Elements/A/files...
 This setup allows to do quick A/B testing by setting which version letter is active in the beforeFilter
 
 ### Step 15: Efficient integration of new scripts
