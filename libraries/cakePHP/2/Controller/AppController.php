@@ -62,35 +62,29 @@ class AppController extends Controller {
 
     function setupLanguage()
     {
-        //language stuff
-        //does get info exist, this will be priority
-        if (isset($_GET['Lang'])) {
-            $this->Language->setGet($_GET['Lang']);
-        }
-        //if there params of what language we should be using
-        if (isset($this->params['language'])) {
-            $this->Language->setParams($this->params['language']);
-        }
-        //or we are going to check out session of cookie for a already selected language
         $this->Language->setSession($this->Session);
-        $this->Language->setCookie($this->Cookie);
-        //and fall back to the default if not set yet
-        $this->Language->setDefaultLanguage(Configure::read('Config.language'));
+        //$this->Language->reset();
+
+        if (isset($_GET['Lang'])) { $this->Language->setGet($_GET['Lang']); }
+        if (isset($this->params['language'])) { $this->Language->setParams($this->params['language']); }
+        $this->Language->setDefaultLanguage(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
         $currLang = $this->Language->currLang();
-
-        $this->Language->setCurrLang($currLang);
-
+        $this->Language->setSessionLang($currLang);
         //pr ($currLang);exit;
-        //echo 'hi';
+
+        //if no lang is set redirect
+        if (!isset($this->params->params['language'])) {
+            //die('redirect');
+            $this->redirect(array('language' => $currLang));
+        }
+
+        Configure::write('currLang', $currLang);
+
         switch ($currLang) {
             case 'fre':
-
-                Configure::write('currLang', $currLang);
                 $this->set('langFR', TRUE);
                 $this->set('lang', 'fr');
                 $this->set('currLang', $currLang);
-                $this->Cookie->write('currLang', 'fre', NULL, '+350 day');
-                Configure::write('Config.language', 'fre');
                 Configure::write("UpdateCase.language", "fre"); //define the language in app_controller / globally
                 break;
             default:
@@ -98,14 +92,8 @@ class AppController extends Controller {
                 $this->set('lang', 'en');
                 $this->set('langEN', TRUE);
                 $this->set('currLang', $currLang);
-                $this->Cookie->write('currLang', 'eng', NULL, '+350 day');
-                Configure::write('Config.language', 'eng');
                 Configure::write("UpdateCase.language", "eng"); //define the language in app_controller / globally
         }
-
-
-        //pr (Configure::read('currLang'));
-        // exit;
     }
 
     function setFrench() {
