@@ -11,7 +11,7 @@
     - manual
   connection: local
   debug:
-    msg: "rm -rf {{ location_staging }}"
+    msg: "rm -rf {{ location_staging }}/{{ github_active_dir }}"
 
 - name: "Manual override: Checkout to staging the ACTIVE project ONLY"
   tags:
