@@ -57,7 +57,7 @@ App::uses('Model', 'Model');
 //                $this->useDbConfig = 'local';
 //            }
 
-			$this->useDbConfig = 'main';
+			$this->useDbConfig = 'default';
 
             Configure::write('DbConfig', $this->useDbConfig);
             parent::__construct($id, $table, $ds);
