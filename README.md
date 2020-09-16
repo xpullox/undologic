@@ -77,7 +77,28 @@ First time cleanup and preparation
 - Uncomment date_default_timezone_set('UTC');
 - Ensure gitignore is correct to prevent any large files from being uploaded
 
-### Step 7: Adding functional testing
+
+### Step 7: Connect UpdateCase Module
+Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
+updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
+The programmer will prefer to handle more complicated upgrades and will get more satisfaction. On the other hand a non-technical staff can fix spelling 
+errors without the ability to break the site will be very satisfied.
+- Logon to UpdateCase.com and download the latest version of the plugin into app/webroot
+- Follow all the easy instructions within the UpdateCase software to integrate into the site
+- You are simply adding a library call on all text / image locations so they will be managed from UpdateCase
+- All content is pulled into your site as a FLAT JSON FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
+website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
+
+### Step 8 gitignore and clean-up
+We now want to make sure we only commit/push files that we need to
+Remove the all the files/dirs in app/tmp
+- Then add a 'empty' file in app/tmp/empty (This will ensure git saves the directory)
+Ignore cached files
+- change the .gitignore file so the updateCase variant matches the previous step. This will ensure all the updatecase
+are not saved into Git as they are always downloaded as required from the server (not needed to be in vcs)
+
+
+### Step 9: Adding functional testing
 Allows to setup automated testing to ensure your important functions in your project behave the same before launch. 
 This allows for rapid development. 
 
@@ -134,12 +155,7 @@ class PageTest extends CakeTestCase
 }
 ```
 
-### gitignore
-Change GitIgnore to match the number of updateCase variant number you are using
-Remove app/tmp
--> create a file 'empty' (This will ensure git saves the directory)
-
-### Step 8: Add Layout
+### Step 10: Add Layout
 Move the layout from the root (that was added at step 3) and into the cakePHP structure
 - WEBROOT/modules/layoutName
 Now integrate into (Views/Layouts/default.ctp) 
@@ -162,7 +178,7 @@ will become
 
 IMPORTANT: Make sure you do NOT change href='#' as this will cause problems if you add "....$base; ?>#...."
 
-### Step 9: Bake Models (if required)
+### Step 11: Bake Models (if required)
 The models are created by using BAKE
 
 in the terminal navigate to the base directory of your project
@@ -181,20 +197,7 @@ cd app (cd /path/to/app)
 ./Console/cake bake
 ```
 
-### Step 10: Connect UpdateCase Module
-Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
-updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
-The programmer will prefer to handle more complicated upgrades and will get more satisfaction. On the other hand a non-technical staff can fix spelling 
-errors without the ability to break the site will be very satisfied.
-- Logon to UpdateCase.com and download the latest version of the plugin into app/webroot
-- Follow all the easy instructions within the UpdateCase software to integrate into the site
-- You are simply adding a library call on all text / image locations so they will be managed from UpdateCase
-- All content is pulled into your site as a FLAT JSON FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
-website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
-
-
-
-### Step 11: Create all your visual pages (concept ONLY)
+### Step 12: Create all your visual pages (concept ONLY)
 Build up your navigation and build your site
 - Create all the concept pages in the 'Pages' controller
 - Using the display function so you only have to create the pages and you do NOT need to create a controller/action for each page (this will compare after approval)
@@ -203,12 +206,12 @@ eg client_users_edit
 This will only allow 'client' user_types in the Users controller / model using the edit action in the future
 -> This allows to prepare and concept out which pages get the correct prefix in advance. 
 
-### Step 12: Approve
+### Step 13: Approve
 Approve all the visual changes with your client BEFORE starting any programming, database development, etc. Nothing is as bad then when you have done work 
 that needs to be re-started or radically changed because the concept was not approved. 
 At this stage any changes can be easily completed and this helps the client brainstorm with you to create a great intuitive software. 
 
-### Step 13: Programming
+### Step 14: Programming
 Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
 the visual pages into fully working systems that may interact with a database, external api, etc.
 
@@ -227,7 +230,7 @@ However... as soon as any page requires complicated programming immediately impl
 IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
 logic, but with the same name you can easily diagnose issues and find references efficiently. 
 
-### Step 14:  
+### Step 15: Overview
 At this point you have a fully functional docker running with a custom website all that is left is a way to automate the publishing to your Staging / LIVE locations. 
 Connect Ansible into your pipeline
 - Each feature is developed in a branch
@@ -236,14 +239,14 @@ Connect Ansible into your pipeline
 - Manually if MASTER is working a RELEASE is created 
 - Automated system take the release / test and if success push to LIVE
 
-### Step 15: Folder organization with version letter
+### Step 16: Folder organization with version letter
 All folders (elements, css, js, etc) need to have a letter indicating the version. 
 This letter is also the same as the current layout. 
 Css files also connect to this letter version name: styles-A.css 
 Elements folder should have a directory with the version letter Elements/A/files...
 This setup allows to do quick A/B testing by setting which version letter is active in the beforeFilter
 
-### Step 16: Efficient integration of new scripts
+### Step 17: Efficient integration of new scripts
 In order to efficiently integrate new modules, 
 you should store all source files in 'modules/NAME' within the webroot
 1. Test that the script works before you integrate into the cakePHP code
@@ -251,7 +254,7 @@ you should store all source files in 'modules/NAME' within the webroot
 3. After you have confirmed it is working in modules and a blank page, next integrate the code into the project using the layout
 4. After it is all working if you want you can refactor the scripts
 
-### Step 17: Logging
+### Step 18: Logging
 Logging needs to HELP support and troubleshooting NOT only your development. 
 What does that mean, it means create levels of logs. 
 -- Highlevel: should outlines which functions / methods are being accessed and general state
