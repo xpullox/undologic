@@ -7,7 +7,11 @@ Logon to your git hub account and create a new empty project
 ### Step 2: Clone that account to your computer
 Use Php storm (or terminal) to checkout the github files to your computer. You will now have an empty project.
 
-### Step 3: Add Ansible / Docker
+### Step 3: Purchase layout and add source files
+Before we start any programming purchase the clients chosen layout and add the raw source
+files into the git account, Later the programming will be able to move this into the cakePHP structure. 
+
+### Step 4: Add Ansible / Docker
 You can run a simple command to download the files into your project. 
 1. Then you can commit into your project separate from this codebase
 2. In the future if you want to upgrade to the latest version simply download and overwrite 'roles'. You might need to modify your site.yml
@@ -20,13 +24,13 @@ CAUTION: this will replace 'readme' 'ansible' 'docker' if they already exist in 
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ . --force
 ```
 
-#### Export ONLY ansible
+#### Export ONLY ansible (optional)
 
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/ansible ansible/.
 ```
 
-#### Export ONLY docker
+#### Export ONLY docker (optional)
 
 ```
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/docker docker/.
@@ -40,16 +44,6 @@ Included in this boiler plate is basic libraries for handling:
 
 ```$xslt
 svn export https://github.com/undoLogic/updateCase-boilerPlate/trunk/libraries/cakePHP/2/. libraries/cakePHP/2/. --force
-```
-
-### Step 4: Install Ansible / Docker (FIRST TIME ONLY)
-
-```angular2
-brew install ansible
-```
-
-```angular2
-@todo ADD DOCKER BREW CASK function here 
 ```
 
 ### Step 5: Add CakePHP 2.x
@@ -94,16 +88,16 @@ chmod +x phpunit-3.7.38.phar
 mv phpunit-3.7.38.phar /usr/local/bin/phpunit.phar
 ```
 
-Ensure your composer.json file in /src has 
+Install composer (first time only)
+```
+brew install composer
+```
+
+Ensure your composer.json file in /src includes 
 ```
 "require-dev": {
     "phpunit/phpunit": "^3.7"
 },
-```
-
-Install composer (first time only)
-```
-brew install composer
 ```
 
 Install based on the composer file
@@ -141,24 +135,21 @@ class PageTest extends CakeTestCase
 ```
 
 ### gitignore
-modify the file in /src
-remove the app/tmp
--> put an empty file there
-
+Change GitIgnore to match the number of updateCase variant number you are using
+Remove app/tmp
+-> create a file 'empty' (This will ensure git saves the directory)
 
 ### Step 8: Add Layout
-Download your preferred Bootstrap layout and add all the source files to WEBROOT/modules/layoutName
-
-Update your layout in CakePHP (Views/Layouts/default.ctp) with the main view from your layout
-
-Use $base (as a variable in App_controller -> beforeFilter() {} ) to link all the scripts to the original location of the layout (in modules) and place this at the top of all VIEW pages
-
+Move the layout from the root (that was added at step 3) and into the cakePHP structure
+- WEBROOT/modules/layoutName
+Now integrate into (Views/Layouts/default.ctp) 
+- Add variable in App_controller in the beforeFilter()
 ```
-$base = $this->webroot.'modules/layoutName/';
+$this->set('baseLayout', $this->webroot.'modules'.DS.'layoutName'.DS);
 ```
 
 Now in your view we need to link to the modules path
--> anywhere you see 'src="assets......' will instead be 'src="<?= $base; ?>assets......'
+-> anywhere you see 'src="assets......' will instead be 'src="<?= $baseLayout; ?>assets......'
 -> This also applies to href, url etc
 
 ```
@@ -166,45 +157,12 @@ Now in your view we need to link to the modules path
 ```
 will become
 ```
-<img src="<?= $base; ?>assets/img.jpg"/>
+<img src="<?= $baseLayout; ?>assets/img.jpg"/>
 ```
 
-IMPORTANT: Make sure you do not change href='#' as this will cause problems if you add "....$base; ?>#...."
+IMPORTANT: Make sure you do NOT change href='#' as this will cause problems if you add "....$base; ?>#...."
 
-### Step 9: Create all your visual pages (concept ONLY)
-Build up your navigation and build your site
-- Create all the concept pages in the 'Pages' controller
-- Using the display function so you only have to create the pages and you do NOT need to create a controller/action for each page (this will compare after approval)
-- Name all your pages in this format: prefix-controller-action.ctp
-eg client_users_edit
-This will only allow 'client' user_types in the Users controller / model using the edit action in the future
--> This allows to prepare and concept out which pages get the correct prefix in advance. 
-
-### Step 10: Approve
-Approve all the visual changes with your client BEFORE starting any programming, database development, etc. Nothing is as bad then when you have done work 
-that needs to be re-started or radically changed because the concept was not approved. 
-At this stage any changes can be easily completed and this helps the client brainstorm with you to create a great intuitive software. 
-
-### Step 11: Programming
-Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
-the visual pages into fully working systems that may interact with a database, external api, etc.
-
-Create most pages with MVC (MODEL-VIEW-CONTROLLER)
--> This is fast to setup and most client actually prefer regular single page loading.
-
-However... as soon as any page requires complicated programming immediately implement AngularJS (API style development)
-- This will force you to create a solid API structure that will keep your code of good quality moving forward. 
-- Create a model that will get the data you require from the database
-- IMPORTANT: Create a Functional test to get this data from your Model / DB
-- Test driven development is not much harder to setup and when it is running future modifications are very easy to implament
-- After the functional test is complete then create the controller (API END POINT)
-- Use Postman to test getting the data OR use CakePHP Tests (RequestAction)
-- Now that you have a solid API you can now integrate this feature into your code with AngularJS
-
-IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
-logic, but with the same name you can easily diagnose issues and find references efficiently. 
-
-### Step 11b: Bake Models (if required)
+### Step 9: Bake Models (if required)
 The models are created by using BAKE
 
 in the terminal navigate to the base directory of your project
@@ -223,7 +181,7 @@ cd app (cd /path/to/app)
 ./Console/cake bake
 ```
 
-### Step 12: Connect UpdateCase Module
+### Step 10: Connect UpdateCase Module
 Our system was developed on the notion that changing text and replacing images should be completed by staff WITHOUT technical experience and all other 
 updates should be completed by technical staff. The reason paying a technical programming to fix spelling errors not only is wasting money and time. 
 The programmer will prefer to handle more complicated upgrades and will get more satisfaction. On the other hand a non-technical staff can fix spelling 
@@ -234,7 +192,42 @@ errors without the ability to break the site will be very satisfied.
 - All content is pulled into your site as a FLAT JSON FILE, meaning all content is local and NOT connected to UpdateCase. UpdateCase can be cancelled and this 
 website can be moved to a new hosting and continued to run. However moving forward all text / image changes will need to be done via programming only.
 
-### Step 13:  
+
+
+### Step 11: Create all your visual pages (concept ONLY)
+Build up your navigation and build your site
+- Create all the concept pages in the 'Pages' controller
+- Using the display function so you only have to create the pages and you do NOT need to create a controller/action for each page (this will compare after approval)
+- Name all your pages in this format: prefix-controller-action.ctp
+eg client_users_edit
+This will only allow 'client' user_types in the Users controller / model using the edit action in the future
+-> This allows to prepare and concept out which pages get the correct prefix in advance. 
+
+### Step 12: Approve
+Approve all the visual changes with your client BEFORE starting any programming, database development, etc. Nothing is as bad then when you have done work 
+that needs to be re-started or radically changed because the concept was not approved. 
+At this stage any changes can be easily completed and this helps the client brainstorm with you to create a great intuitive software. 
+
+### Step 13: Programming
+Now that all the visuals are approved and all the concepts that need to be programmed have been visualized, the programming should now convert
+the visual pages into fully working systems that may interact with a database, external api, etc.
+
+Create most pages with MVC (MODEL-VIEW-CONTROLLER)
+-> This is fast to setup and most client actually prefer regular single page loading.
+
+However... as soon as any page requires complicated programming immediately implement AngularJS (API style development)
+- This will force you to create a solid API structure that will keep your code of good quality moving forward. 
+- Create a model that will get the data you require from the database
+- IMPORTANT: Create a Functional test to get this data from your Model / DB
+- Test driven development is not much harder to setup and when it is running future modifications are very easy to implament
+- After the functional test is complete then create the controller (API END POINT)
+- Use Postman to test getting the data OR use CakePHP Tests (RequestAction)
+- Now that you have a solid API you can now integrate this feature into your code with AngularJS
+
+IMPORTANT: You should name all of your functions / methods the exact same between all controllers / models / views. you can prepend words to fit into your 
+logic, but with the same name you can easily diagnose issues and find references efficiently. 
+
+### Step 14:  
 At this point you have a fully functional docker running with a custom website all that is left is a way to automate the publishing to your Staging / LIVE locations. 
 Connect Ansible into your pipeline
 - Each feature is developed in a branch
@@ -243,28 +236,20 @@ Connect Ansible into your pipeline
 - Manually if MASTER is working a RELEASE is created 
 - Automated system take the release / test and if success push to LIVE
 
-### Step 14: Folder organization with version letter
+### Step 15: Folder organization with version letter
 All folders (elements, css, js, etc) need to have a letter indicating the version. 
 This letter is also the same as the current layout. 
 Css files also connect to this letter version name: styles-A.css 
 Elements folder should have a directory with the version letter Elements/A/files...
 This setup allows to do quick A/B testing by setting which version letter is active in the beforeFilter
 
-### Step 15: Efficient integration of new scripts
+### Step 16: Efficient integration of new scripts
 In order to efficiently integrate new modules, 
 you should store all source files in 'modules/NAME' within the webroot
 1. Test that the script works before you integrate into the cakePHP code
 2. Create a new page WITHOUT using the layout and ensure the script works (linking all scripts to the modules directory)
 3. After you have confirmed it is working in modules and a blank page, next integrate the code into the project using the layout
 4. After it is all working if you want you can refactor the scripts
-
-### Step 16: Scaffolding Pages
-To setup the visual pages, you should setup all the non-working pages
-using the real layout. This allows to show the concept to your client
-and ensure the project is inline with their vision. 
-It will be the real elements so they will jive with it (opposed to showing wireframes which they tend to ignore and only voice their ideas when they see it build)
-1. Ensure you already name your files with the correct prefix (eg staff access = staff_dashboard.ctp)
-2. Build this quickly but remember it will change a lot after the client starts giving feedback. 
 
 ### Step 17: Logging
 Logging needs to HELP support and troubleshooting NOT only your development. 
